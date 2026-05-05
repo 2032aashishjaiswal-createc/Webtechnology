@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Handling - Personal Website</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .event-demo {
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .highlight {
+            background-color: yellow;
+            padding: 5px;
+        }
+        #mouseBox {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Event Handling Demonstration - Personal Website</h1>
+
+<nav>
+    <a href="exp1_events.html">EXP1 Events</a>
+    <a href="exp2_events.html">EXP2 Events</a>
+</nav>
+
+<hr>
+
+<!-- 1. Click Event -->
+<div class="event-demo">
+    <h2>1. Click Event</h2>
+    <button onclick="handleClick()">Click Me!</button>
+    <p id="clickResult"></p>
+</div>
+
+<!-- 2. Double Click Event -->
+<div class="event-demo">
+    <h2>2. Double Click Event</h2>
+    <button ondblclick="handleDoubleClick()">Double Click Me!</button>
+    <p id="dblClickResult"></p>
+</div>
+
+<!-- 3. Mouse Over and Mouse Out Events -->
+<div class="event-demo">
+    <h2>3. Mouse Over / Mouse Out Events</h2>
+    <div id="mouseBox" onmouseover="handleMouseOver()" onmouseout="handleMouseOut()">
+        Hover over this box!
+    </div>
+    <p id="mouseResult"></p>
+</div>
+
+<!-- 4. Key Press Event -->
+<div class="event-demo">
+    <h2>4. Key Press Event</h2>
+    <input type="text" id="keyInput" onkeypress="handleKeyPress(event)" placeholder="Type something...">
+    <p id="keyResult"></p>
+</div>
+
+<!-- 5. Focus and Blur Events -->
+<div class="event-demo">
+    <h2>5. Focus / Blur Events</h2>
+    <input type="text" id="focusInput" onfocus="handleFocus()" onblur="handleBlur()" placeholder="Click here">
+    <p id="focusResult"></p>
+</div>
+
+<!-- 6. Change Event -->
+<div class="event-demo">
+    <h2>6. Change Event</h2>
+    <select id="selectBox" onchange="handleChange()">
+        <option value="">Select a skill</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="PHP">PHP</option>
+    </select>
+    <p id="changeResult"></p>
+</div>
+
+<!-- 7. Submit Event -->
+<div class="event-demo">
+    <h2>7. Submit Event</h2>
+    <form onsubmit="return handleSubmit(event)">
+        <input type="text" id="nameInput" placeholder="Enter your name" required>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="submitResult"></p>
+</div>
+
+<!-- 8. Load Event -->
+<div class="event-demo">
+    <h2>8. Load Event</h2>
+    <p id="loadResult"></p>
+</div>
+
+<script>
+// Page load event
+window.onload = function() {
+    document.getElementById('loadResult').textContent = 'Page loaded successfully at ' + new Date().toLocaleTimeString();
+};
+
+// 1. Click Event
+let clickCount = 0;
+function handleClick() {
+    clickCount++;
+    document.getElementById('clickResult').textContent = 'Button clicked ' + clickCount + ' times!';
+}
+
+// 2. Double Click Event
+function handleDoubleClick() {
+    document.getElementById('dblClickResult').innerHTML = '<span class="highlight">You double-clicked the button!</span>';
+}
+
+// 3. Mouse Over and Mouse Out Events
+function handleMouseOver() {
+    document.getElementById('mouseBox').style.backgroundColor = '#4CAF50';
+    document.getElementById('mouseBox').style.color = 'white';
+    document.getElementById('mouseResult').textContent = 'Mouse is over the box!';
+}
+
+function handleMouseOut() {
+    document.getElementById('mouseBox').style.backgroundColor = 'white';
+    document.getElementById('mouseBox').style.color = 'black';
+    document.getElementById('mouseResult').textContent = 'Mouse left the box!';
+}
+
+// 4. Key Press Event
+function handleKeyPress(event) {
+    const key = event.key;
+    const input = document.getElementById('keyInput').value;
+    document.getElementById('keyResult').textContent = 'You pressed: ' + key + ' | Current text: ' + input;
+}
+
+// 5. Focus and Blur Events
+function handleFocus() {
+    document.getElementById('focusInput').style.backgroundColor = '#e3f2fd';
+    document.getElementById('focusResult').textContent = 'Input field is focused!';
+}
+
+function handleBlur() {
+    document.getElementById('focusInput').style.backgroundColor = 'white';
+    document.getElementById('focusResult').textContent = 'Input field lost focus!';
+}
+
+// 6. Change Event
+function handleChange() {
+    const selectedValue = document.getElementById('selectBox').value;
+    if (selectedValue) {
+        document.getElementById('changeResult').textContent = 'You selected: ' + selectedValue;
+    }
+}
+
+// 7. Submit Event
+function handleSubmit(event) {
+    event.preventDefault();
+    const name = document.getElementById('nameInput').value;
+    document.getElementById('submitResult').textContent = 'Form submitted! Welcome, ' + name + '!';
+    document.getElementById('nameInput').value = '';
+    return false;
+}
+</script>
+
+</body>
+</html>

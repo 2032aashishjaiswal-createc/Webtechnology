@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyShop - Home</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .user-info {
+            float: right;
+            color: white;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .welcome-section {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        aside {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+
+<header>
+    <h1>MyShop</h1>
+    <p>Your One Stop Online Store</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+    <span class="user-info" id="userInfo"></span>
+</nav>
+
+<main>
+    <section class="welcome-section">
+        <h2>Welcome to MyShop</h2>
+        <article>
+            <p>We offer high-quality products at affordable prices.</p>
+            <p>Browse our collection of electronics, accessories, and more!</p>
+        </article>
+    </section>
+
+    <aside>
+        <h3>Special Offer</h3>
+        <p>Get 20% off on your first purchase!</p>
+    </aside>
+</main>
+
+<footer>
+    <p>&copy; 2026 MyShop. All Rights Reserved.</p>
+</footer>
+
+<script>
+function checkLoginStatus() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const userInfoDiv = document.getElementById('userInfo');
+    
+    if (loggedInUser) {
+        userInfoDiv.innerHTML = 'Welcome, ' + loggedInUser + ' | <a href="#" onclick="logout()" style="color: white;">Logout</a>';
+    } else {
+        userInfoDiv.innerHTML = '<a href="login.html" style="color: white;">Login</a> | <a href="register.html" style="color: white;">Register</a>';
+    }
+}
+
+function logout() {
+    sessionStorage.clear();
+    alert('Logged out successfully!');
+    window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>

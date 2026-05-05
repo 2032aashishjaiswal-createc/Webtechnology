@@ -1,0 +1,335 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    WEB PROGRAMMING LAB - PROJECT STRUCTURE                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📦 ROOT DIRECTORY
+│
+├── 📄 index.html                    ← START HERE! Main landing page
+├── 📄 README.md                     ← Complete documentation
+├── 📄 EXPERIMENTS_SUMMARY.md        ← Detailed experiment info
+├── 📄 QUICK_START.md               ← Quick setup guide
+├── 📄 PROJECT_STRUCTURE.txt        ← This file
+│
+├── 📁 EXP1 - Personal Website (HTML Only)
+│   ├── index.html                   ← Home page
+│   ├── about.html                   ← About page
+│   ├── projects.html                ← Projects page
+│   └── contact.html                 ← Contact page
+│
+├── 📁 EXP2 - E-Commerce Website (HTML Only)
+│   ├── index.html                   ← Home page
+│   ├── products.html                ← Products listing
+│   ├── cart.html                    ← Shopping cart
+│   └── contact.html                 ← Contact/Checkout
+│
+├── 📁 EXP3 - Personal Website (HTML + CSS)
+│   ├── index.html
+│   ├── about.html
+│   ├── projects.html
+│   ├── contact.html
+│   └── style.css                    ← Styling
+│
+├── 📁 EXP4 - E-Commerce (HTML + CSS)
+│   ├── index.html
+│   ├── products.html
+│   ├── cart.html
+│   ├── contact.html
+│   ├── login.html
+│   ├── register.html
+│   └── style.css                    ← Styling
+│
+├── 📁 EXP5 - Calculator (JavaScript)
+│   └── calculator.html              ← Interactive calculator
+│
+├── 📁 EXP6 - Registration & Login (JavaScript Validation) ⭐ NEW
+│   ├── index.html                   ← Home with login status
+│   ├── register.html                ← Registration form
+│   │   └── Validation:
+│   │       • Username (3+ chars, alphanumeric)
+│   │       • Email (valid format)
+│   │       • Phone (10 digits)
+│   │       • Password (6+ chars, mixed case + number)
+│   │       • Confirm password match
+│   │
+│   ├── login.html                   ← Login form
+│   │   └── Features:
+│   │       • Authentication
+│   │       • Remember Me
+│   │       • Session management
+│   │
+│   ├── products.html                ← Products with cart
+│   │   └── Features:
+│   │       • Add to cart
+│   │       • LocalStorage persistence
+│   │
+│   ├── cart.html                    ← Shopping cart
+│   │   └── Features:
+│   │       • View items
+│   │       • Remove items
+│   │       • Calculate total
+│   │
+│   └── contact.html                 ← Checkout form
+│       └── Validation:
+│           • Name, Email, Address
+│           • Payment method selection
+│
+├── 📁 EXP7 - Event Handling (JavaScript Events) ⭐ NEW
+│   ├── exp1_events.html             ← Events for Personal Website
+│   │   └── Events Demonstrated:
+│   │       • Click Event (counter)
+│   │       • Double Click (highlighting)
+│   │       • Mouse Over/Out (color change)
+│   │       • Key Press (real-time detection)
+│   │       • Focus/Blur (input highlighting)
+│   │       • Change (dropdown selection)
+│   │       • Submit (form handling)
+│   │       • Load (page timestamp)
+│   │
+│   └── exp2_events.html             ← Events for MyShop
+│       └── Events Demonstrated:
+│           • Product hover (details)
+│           • Add to cart (click)
+│           • Cart icon (click)
+│           • Quantity change
+│           • Search input (keyup)
+│           • Filter change
+│           • Context menu (right-click)
+│           • Form submit
+│           • Window resize
+│           • Scroll tracking
+│
+├── 📁 EXP8 - PHP Form Handling & Validation ⭐ NEW
+│   ├── exp1_form.php                ← Contact form (Personal Website)
+│   │   └── Features:
+│   │       • Server-side validation
+│   │       • Name validation (3+ chars, letters only)
+│   │       • Email validation (filter_var)
+│   │       • Message validation (10+ chars)
+│   │       • Data saved to contacts.txt
+│   │       • Display submitted contacts
+│   │
+│   ├── exp2_form.php                ← Checkout form (MyShop)
+│   │   └── Features:
+│   │       • Customer info validation
+│   │       • Phone validation (10 digits)
+│   │       • Address validation (10+ chars)
+│   │       • Payment method selection
+│   │       • Order number generation
+│   │       • Data saved to orders.txt
+│   │       • Display recent orders
+│   │
+│   ├── contacts.txt                 ← Auto-generated (contact submissions)
+│   └── orders.txt                   ← Auto-generated (order history)
+│
+├── 📁 EXP9 - PHP & MySQL Product Management ⭐ NEW
+│   ├── config.php                   ← Database connection & setup
+│   │   └── Auto-creates:
+│   │       • Database: myshop_db
+│   │       • Table: products
+│   │       • Sample data (6 products)
+│   │
+│   ├── index.php                    ← Home page
+│   │   └── Navigation to all features
+│   │
+│   ├── products.php                 ← View all products (READ)
+│   │   └── Features:
+│   │       • Display all products in table
+│   │       • Edit/Delete buttons
+│   │       • Formatted price display
+│   │
+│   ├── add_product.php              ← Add new product (CREATE)
+│   │   └── Form fields:
+│   │       • Name, Description, Price
+│   │       • Category, Stock, Image URL
+│   │       • Validation & error handling
+│   │
+│   ├── edit_product.php             ← Edit product (UPDATE)
+│   │   └── Features:
+│   │       • Pre-fill form with existing data
+│   │       • Update database
+│   │       • Success confirmation
+│   │
+│   ├── search.php                   ← Search products
+│   │   └── Features:
+│   │       • Search by name/category/description
+│   │       • Display results in table
+│   │       • SQL LIKE query
+│   │
+│   └── README.md                    ← Detailed MySQL setup guide
+│
+└── 📁 EXP10 - Sessions & Cookies ⭐ NEW
+    ├── index.php                    ← Home page
+    │   └── Features:
+    │       • Session status display
+    │       • Last visit cookie
+    │       • Welcome message
+    │
+    ├── register.php                 ← User registration
+    │   └── Features:
+    │       • Form validation
+    │       • User data storage (JSON files)
+    │       • Auto-create users/ directory
+    │
+    ├── login.php                    ← User login
+    │   └── Features:
+    │       • Credential verification
+    │       • Session creation
+    │       • Remember Me cookie (30 days)
+    │       • Auto-fill username from cookie
+    │
+    ├── logout.php                   ← Logout handler
+    │   └── Actions:
+    │       • Destroy session
+    │       • Clear cookies
+    │       • Redirect to home
+    │
+    ├── products.php                 ← Products listing
+    │   └── Features:
+    │       • Page view counter (cookie)
+    │       • Add to cart (session)
+    │       • Cart count display
+    │
+    ├── cart.php                     ← Shopping cart
+    │   └── Features:
+    │       • Session-based cart
+    │       • Add/Remove items
+    │       • Calculate total
+    │       • Clear cart option
+    │
+    ├── checkout.php                 ← Order processing
+    │   └── Features:
+    │       • Login requirement check
+    │       • Order summary
+    │       • Order number generation
+    │       • Save order to file
+    │       • Clear cart after order
+    │
+    ├── profile.php                  ← User profile
+    │   └── Displays:
+    │       • User information
+    │       • Session details (ID, login time, duration)
+    │       • Cookie information (Remember Me, Last Visit, Page Views)
+    │       • Cart item count
+    │
+    ├── users/                       ← Auto-generated directory
+    │   └── username.txt             ← User data files (JSON)
+    │
+    └── orders/                      ← Auto-generated directory
+        └── ORDxxxxxxxxxx.txt        ← Order files (JSON)
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              TECHNOLOGY STACK                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────┬──────┬─────┬────────────┬─────┬───────┬──────────┬─────────┐
+│ Experiment  │ HTML │ CSS │ JavaScript │ PHP │ MySQL │ Sessions │ Cookies │
+├─────────────┼──────┼─────┼────────────┼─────┼───────┼──────────┼─────────┤
+│ EXP1        │  ✅  │  ❌ │     ❌     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP2        │  ✅  │  ❌ │     ❌     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP3        │  ✅  │  ✅ │     ❌     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP4        │  ✅  │  ✅ │     ❌     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP5        │  ✅  │  ✅ │     ✅     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP6 ⭐     │  ✅  │  ✅ │     ✅     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP7 ⭐     │  ✅  │  ✅ │     ✅     │ ❌  │  ❌   │    ❌    │   ❌    │
+│ EXP8 ⭐     │  ✅  │  ✅ │     ❌     │ ✅  │  ❌   │    ❌    │   ❌    │
+│ EXP9 ⭐     │  ✅  │  ✅ │     ❌     │ ✅  │  ✅   │    ❌    │   ❌    │
+│ EXP10 ⭐    │  ✅  │  ✅ │     ❌     │ ✅  │  ❌   │    ✅    │   ✅    │
+└─────────────┴──────┴─────┴────────────┴─────┴───────┴──────────┴─────────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                            SETUP REQUIREMENTS                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────┬────────────────────────────────────────────────────┐
+│ Experiments 1-7      │ ✅ No setup needed - Just open in browser         │
+├──────────────────────┼────────────────────────────────────────────────────┤
+│ Experiments 8, 10    │ 🔧 Requires: Apache + PHP                         │
+├──────────────────────┼────────────────────────────────────────────────────┤
+│ Experiment 9         │ 🔧 Requires: Apache + PHP + MySQL                 │
+└──────────────────────┴────────────────────────────────────────────────────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              DATA FLOW DIAGRAM                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+EXP6 (JavaScript):
+┌──────────┐    LocalStorage    ┌──────────┐    SessionStorage    ┌──────┐
+│ Register │ ─────────────────> │  Login   │ ──────────────────> │ Cart │
+└──────────┘                    └──────────┘                      └──────┘
+
+EXP8 (PHP):
+┌──────┐    POST Data    ┌─────────────┐    File I/O    ┌──────────┐
+│ Form │ ──────────────> │ PHP Validate│ ─────────────> │ .txt File│
+└──────┘                 └─────────────┘                 └──────────┘
+
+EXP9 (PHP & MySQL):
+┌──────┐    POST    ┌─────┐    SQL Query    ┌───────┐
+│ Form │ ─────────> │ PHP │ ──────────────> │ MySQL │
+└──────┘            └─────┘                  └───────┘
+                       ↓
+                   ┌─────────┐
+                   │ Display │
+                   └─────────┘
+
+EXP10 (Sessions & Cookies):
+┌──────────┐    Session    ┌──────┐    Cookie    ┌─────────┐
+│ Register │ ────────────> │ Login│ ───────────> │ Profile │
+└──────────┘               └──────┘              └─────────┘
+                              ↓
+                          ┌──────┐
+                          │ Cart │ (Session)
+                          └──────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                            FILE COUNT SUMMARY                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📊 Total Files Created: 40+ files
+📊 Total Lines of Code: 3500+ lines
+📊 Documentation Files: 4 files
+📊 HTML Files: 15 files
+📊 PHP Files: 15 files
+📊 CSS Files: 2 files
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           TESTING SEQUENCE                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1️⃣  Open index.html in browser
+2️⃣  Test EXP1-5 (click and explore)
+3️⃣  Test EXP6 (register → login → cart → checkout)
+4️⃣  Test EXP7 (interact with all events)
+5️⃣  Start XAMPP (Apache + MySQL)
+6️⃣  Test EXP8 (submit forms with valid/invalid data)
+7️⃣  Test EXP9 (CRUD operations on products)
+8️⃣  Test EXP10 (register → login → cart → profile → checkout)
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              QUICK ACCESS                                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🌐 Main Page:           index.html
+📖 Documentation:       README.md
+📋 Summary:             EXPERIMENTS_SUMMARY.md
+⚡ Quick Start:         QUICK_START.md
+🗂️  Structure:          PROJECT_STRUCTURE.txt (this file)
+
+🔗 Direct Links:
+   • EXP6: EXP6/index.html
+   • EXP7: EXP7/exp1_events.html
+   • EXP8: http://localhost/EXP8/exp1_form.php
+   • EXP9: http://localhost/EXP9/index.php
+   • EXP10: http://localhost/EXP10/index.php
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         🎉 ALL EXPERIMENTS COMPLETE! 🎉                      ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+                          Happy Learning & Coding! 🚀

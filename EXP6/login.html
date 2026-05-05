@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyShop - Login</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="products.html">Products</a> |
+    <a href="login.html">Login</a> |
+    <a href="register.html">Register</a>
+</nav>
+
+<h1>Login</h1>
+
+<div id="messageBox" style="display:none;"></div>
+
+<form id="loginForm" onsubmit="return validateLoginForm(event)">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <div id="usernameError" class="error"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <div id="passwordError" class="error"></div>
+    </div>
+
+    <div id="loginError" class="error"></div>
+
+    <button type="submit">Login</button>
+</form>
+
+<p>Don't have an account? <a href="register.html">Register here</a></p>
+
+<script>
+function validateLoginForm(event) {
+    event.preventDefault();
+    
+    // Clear previous errors
+    clearErrors();
+    
+    let isValid = true;
+    
+    // Get form values
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    
+    // Validate username
+    if (username === '') {
+        showError('usernameError', 'Username is required');
+        isValid = false;
+    }
+    
+    // Validate password
+    if (password === '') {
+        showError('passwordError', 'Password is required');
+        isValid = false;
+    }
+    
+    if (isValid) {
+        // Check if user exists in localStorage
+        const storedUser = localStorage.getItem('user_' + username);
+        
+        if (storedUser) {
+            const userData = JSON.parse(storedUser);
+            
+            if (userData.password === password) {
+                // Login successful
+                sessionStorage.setItem('loggedInUser', username);
+                sessionStorage.setItem('userEmail', userData.email);
+                
+                // Show success message
+                const messageBox = document.getElementById('messageBox');
+                messageBox.textContent = 'Login successful! Redirecting...';
+                messageBox.className = 'success';
+                messageBox.style.display = 'block';
+                
+                // Redirect to products page
+                setTimeout(function() {
+                    window.location.href = 'products.html';
+                }, 1500);
+            } else {
+                showError('loginError', 'Invalid username or password');
+            }
+        } else {
+            showError('loginError', 'User not found. Please register first.');
+        }
+    }
+    
+    return false;
+}
+
+function showError(elementId, message) {
+    document.getElementById(elementId).textContent = message;
+}
+
+function clearErrors() {
+    const errorElements = document.getElementsByClassName('error');
+    for (let i = 0; i < errorElements.length; i++) {
+        errorElements[i].textContent = '';
+    }
+    document.getElementById('messageBox').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

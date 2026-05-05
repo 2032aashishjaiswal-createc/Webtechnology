@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Handling - MyShop</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .event-demo {
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #333;
+            display: inline-block;
+            border-radius: 50%;
+        }
+        .cart-icon:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin: 5px;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        #notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Event Handling Demonstration - MyShop</h1>
+
+<nav>
+    <a href="exp1_events.html">EXP1 Events</a>
+    <a href="exp2_events.html">EXP2 Events</a>
+</nav>
+
+<div id="notification"></div>
+
+<hr>
+
+<!-- 1. Product Hover Event -->
+<div class="event-demo">
+    <h2>1. Mouse Hover Event on Products</h2>
+    <div class="product-card" onmouseover="showProductDetails(this, 'Wireless Headphones')" onmouseout="hideProductDetails(this)">
+        <h3>Wireless Headphones</h3>
+        <p>$50</p>
+        <div class="details" style="display:none;">High-quality sound!</div>
+    </div>
+    <div class="product-card" onmouseover="showProductDetails(this, 'Smart Watch')" onmouseout="hideProductDetails(this)">
+        <h3>Smart Watch</h3>
+        <p>$80</p>
+        <div class="details" style="display:none;">Track your fitness!</div>
+    </div>
+</div>
+
+<!-- 2. Add to Cart Click Event -->
+<div class="event-demo">
+    <h2>2. Add to Cart Click Event</h2>
+    <button onclick="addToCart('Laptop', 500)">Add Laptop to Cart</button>
+    <button onclick="addToCart('Mouse', 20)">Add Mouse to Cart</button>
+    <p id="cartStatus"></p>
+</div>
+
+<!-- 3. Cart Icon Click Event -->
+<div class="event-demo">
+    <h2>3. Cart Icon Click Event</h2>
+    <span class="cart-icon" onclick="viewCart()">🛒</span>
+    <span id="cartCount">0</span> items
+</div>
+
+<!-- 4. Quantity Change Event -->
+<div class="event-demo">
+    <h2>4. Quantity Change Event</h2>
+    <label>Product Quantity:</label>
+    <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateQuantity()">
+    <p id="quantityResult"></p>
+</div>
+
+<!-- 5. Search Input Event -->
+<div class="event-demo">
+    <h2>5. Search Input Event (keyup)</h2>
+    <input type="text" id="searchBox" onkeyup="searchProducts()" placeholder="Search products...">
+    <p id="searchResult"></p>
+</div>
+
+<!-- 6. Filter Selection Event -->
+<div class="event-demo">
+    <h2>6. Filter Change Event</h2>
+    <select id="categoryFilter" onchange="filterProducts()">
+        <option value="">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="accessories">Accessories</option>
+        <option value="clothing">Clothing</option>
+    </select>
+    <p id="filterResult"></p>
+</div>
+
+<!-- 7. Right Click Context Menu Event -->
+<div class="event-demo">
+    <h2>7. Context Menu Event (Right Click)</h2>
+    <div id="contextBox" oncontextmenu="return handleContextMenu(event)" style="border: 2px solid #333; padding: 20px; width: 300px;">
+        Right-click on this box
+    </div>
+    <p id="contextResult"></p>
+</div>
+
+<!-- 8. Form Validation on Submit -->
+<div class="event-demo">
+    <h2>8. Form Submit Event with Validation</h2>
+    <form onsubmit="return validateOrder(event)">
+        <input type="text" id="customerName" placeholder="Your Name" required><br><br>
+        <input type="email" id="customerEmail" placeholder="Your Email" required><br><br>
+        <button type="submit">Place Order</button>
+    </form>
+    <p id="orderResult"></p>
+</div>
+
+<!-- 9. Window Resize Event -->
+<div class="event-demo">
+    <h2>9. Window Resize Event</h2>
+    <p id="resizeResult"></p>
+</div>
+
+<!-- 10. Scroll Event -->
+<div class="event-demo">
+    <h2>10. Scroll Event</h2>
+    <p id="scrollResult"></p>
+</div>
+
+<script>
+let cartItems = 0;
+let cartTotal = 0;
+
+// Window resize event
+window.onresize = function() {
+    document.getElementById('resizeResult').textContent = 'Window size: ' + window.innerWidth + 'x' + window.innerHeight;
+};
+
+// Scroll event
+window.onscroll = function() {
+    document.getElementById('scrollResult').textContent = 'Scroll position: ' + window.pageYOffset + 'px';
+};
+
+// Initialize
+window.onload = function() {
+    document.getElementById('resizeResult').textContent = 'Window size: ' + window.innerWidth + 'x' + window.innerHeight;
+};
+
+// 1. Product Hover Events
+function showProductDetails(element, productName) {
+    const details = element.querySelector('.details');
+    details.style.display = 'block';
+    showNotification('Viewing: ' + productName);
+}
+
+function hideProductDetails(element) {
+    const details = element.querySelector('.details');
+    details.style.display = 'none';
+}
+
+// 2. Add to Cart Click Event
+function addToCart(productName, price) {
+    cartItems++;
+    cartTotal += price;
+    document.getElementById('cartCount').textContent = cartItems;
+    document.getElementById('cartStatus').textContent = productName + ' added! Total: $' + cartTotal;
+    showNotification(productName + ' added to cart!');
+}
+
+// 3. View Cart Click Event
+function viewCart() {
+    if (cartItems === 0) {
+        alert('Your cart is empty!');
+    } else {
+        alert('You have ' + cartItems + ' items in cart. Total: $' + cartTotal);
+    }
+}
+
+// 4. Quantity Change Event
+function updateQuantity() {
+    const quantity = document.getElementById('quantity').value;
+    document.getElementById('quantityResult').textContent = 'Quantity updated to: ' + quantity;
+}
+
+// 5. Search Input Event
+function searchProducts() {
+    const searchTerm = document.getElementById('searchBox').value;
+    if (searchTerm.length > 0) {
+        document.getElementById('searchResult').textContent = 'Searching for: ' + searchTerm;
+    } else {
+        document.getElementById('searchResult').textContent = '';
+    }
+}
+
+// 6. Filter Change Event
+function filterProducts() {
+    const category = document.getElementById('categoryFilter').value;
+    if (category) {
+        document.getElementById('filterResult').textContent = 'Showing products in: ' + category;
+    } else {
+        document.getElementById('filterResult').textContent = 'Showing all products';
+    }
+}
+
+// 7. Context Menu Event
+function handleContextMenu(event) {
+    event.preventDefault();
+    document.getElementById('contextResult').textContent = 'Right-clicked at position: ' + event.clientX + ', ' + event.clientY;
+    return false;
+}
+
+// 8. Form Submit Event
+function validateOrder(event) {
+    event.preventDefault();
+    const name = document.getElementById('customerName').value;
+    const email = document.getElementById('customerEmail').value;
+    
+    if (name && email) {
+        document.getElementById('orderResult').textContent = 'Order placed successfully for ' + name + '!';
+        showNotification('Order confirmed!');
+    }
+    return false;
+}
+
+// Notification helper
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+    
+    setTimeout(function() {
+        notification.style.display = 'none';
+    }, 2000);
+}
+</script>
+
+</body>
+</html>

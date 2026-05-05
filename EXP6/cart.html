@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyShop - Cart</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .user-info {
+            float: right;
+            color: white;
+        }
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .total-section {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #da190b;
+        }
+        .checkout-btn {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body onload="loadCart()">
+
+<header>
+    <h1>Your Shopping Cart</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+    <span class="user-info" id="userInfo"></span>
+</nav>
+
+<main>
+    <div id="cartContent"></div>
+</main>
+
+<footer>
+    <p>&copy; 2026 MyShop</p>
+</footer>
+
+<script>
+function checkLoginStatus() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const userInfoDiv = document.getElementById('userInfo');
+    
+    if (loggedInUser) {
+        userInfoDiv.innerHTML = 'Welcome, ' + loggedInUser + ' | <a href="#" onclick="logout()" style="color: white;">Logout</a>';
+    } else {
+        userInfoDiv.innerHTML = '<a href="login.html" style="color: white;">Login</a> | <a href="register.html" style="color: white;">Register</a>';
+    }
+}
+
+function logout() {
+    sessionStorage.clear();
+    alert('Logged out successfully!');
+    window.location.href = 'index.html';
+}
+
+function loadCart() {
+    checkLoginStatus();
+    
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContent = document.getElementById('cartContent');
+    
+    if (cart.length === 0) {
+        cartContent.innerHTML = '<div class="empty-cart">Your cart is empty. <a href="products.html">Continue Shopping</a></div>';
+        return;
+    }
+    
+    let html = '<table>';
+    html += '<tr><th>Product</th><th>Price</th><th>Quantity</th><th>Total</th><th>Action</th></tr>';
+    
+    let grandTotal = 0;
+    
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        grandTotal += itemTotal;
+        
+        html += '<tr>';
+        html += '<td>' + item.name + '</td>';
+        html += '<td>$' + item.price + '</td>';
+        html += '<td>' + item.quantity + '</td>';
+        html += '<td>$' + itemTotal + '</td>';
+        html += '<td><button onclick="removeFromCart(' + index + ')">Remove</button></td>';
+        html += '</tr>';
+    });
+    
+    html += '</table>';
+    html += '<div class="total-section">Grand Total: $' + grandTotal + '</div>';
+    html += '<div style="text-align: right;"><button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button></div>';
+    
+    cartContent.innerHTML = html;
+}
+
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
+}
+
+function checkout() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    
+    if (!loggedInUser) {
+        alert('Please login to proceed with checkout');
+        window.location.href = 'login.html';
+    } else {
+        window.location.href = 'contact.html';
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyShop - Contact & Checkout</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .user-info {
+            float: right;
+            color: white;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        fieldset {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+
+<header>
+    <h1>Contact & Checkout</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+    <span class="user-info" id="userInfo"></span>
+</nav>
+
+<main>
+    <section>
+        <form id="checkoutForm" onsubmit="return validateCheckoutForm(event)">
+            <fieldset>
+                <legend>Customer Information</legend>
+
+                <label>Name:</label>
+                <input type="text" id="name" name="name">
+                <div id="nameError" class="error"></div>
+
+                <label>Email:</label>
+                <input type="email" id="email" name="email">
+                <div id="emailError" class="error"></div>
+
+                <label>Address:</label>
+                <textarea id="address" name="address" rows="4"></textarea>
+                <div id="addressError" class="error"></div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Payment Method</legend>
+
+                <input type="radio" id="credit" name="payment" value="credit"> 
+                <label for="credit" style="display:inline;">Credit Card</label><br>
+                
+                <input type="radio" id="debit" name="payment" value="debit"> 
+                <label for="debit" style="display:inline;">Debit Card</label><br>
+                
+                <input type="radio" id="cod" name="payment" value="cod"> 
+                <label for="cod" style="display:inline;">Cash on Delivery</label><br>
+                
+                <div id="paymentError" class="error"></div>
+            </fieldset>
+
+            <details>
+                <summary>Shipping Policy</summary>
+                <p>Products will be delivered within 5-7 business days.</p>
+            </details>
+
+            <br>
+            <button type="submit">Place Order</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 MyShop</p>
+</footer>
+
+<script>
+function checkLoginStatus() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const userInfoDiv = document.getElementById('userInfo');
+    
+    if (loggedInUser) {
+        userInfoDiv.innerHTML = 'Welcome, ' + loggedInUser + ' | <a href="#" onclick="logout()" style="color: white;">Logout</a>';
+        
+        // Pre-fill email if available
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('email').value = userEmail;
+        }
+    } else {
+        userInfoDiv.innerHTML = '<a href="login.html" style="color: white;">Login</a> | <a href="register.html" style="color: white;">Register</a>';
+    }
+}
+
+function logout() {
+    sessionStorage.clear();
+    alert('Logged out successfully!');
+    window.location.href = 'index.html';
+}
+
+function validateCheckoutForm(event) {
+    event.preventDefault();
+    
+    // Clear previous errors
+    clearErrors();
+    
+    let isValid = true;
+    
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked');
+    
+    // Validate name
+    if (name === '') {
+        showError('nameError', 'Name is required');
+        isValid = false;
+    } else if (name.length < 3) {
+        showError('nameError', 'Name must be at least 3 characters');
+        isValid = false;
+    }
+    
+    // Validate email
+    if (email === '') {
+        showError('emailError', 'Email is required');
+        isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('emailError', 'Please enter a valid email address');
+        isValid = false;
+    }
+    
+    // Validate address
+    if (address === '') {
+        showError('addressError', 'Address is required');
+        isValid = false;
+    } else if (address.length < 10) {
+        showError('addressError', 'Please enter a complete address');
+        isValid = false;
+    }
+    
+    // Validate payment method
+    if (!payment) {
+        showError('paymentError', 'Please select a payment method');
+        isValid = false;
+    }
+    
+    if (isValid) {
+        // Clear cart
+        localStorage.removeItem('cart');
+        
+        // Show success message
+        alert('Order placed successfully! Thank you for shopping with us.');
+        
+        // Redirect to home page
+        window.location.href = 'index.html';
+    }
+    
+    return false;
+}
+
+function showError(elementId, message) {
+    document.getElementById(elementId).textContent = message;
+}
+
+function clearErrors() {
+    const errorElements = document.getElementsByClassName('error');
+    for (let i = 0; i < errorElements.length; i++) {
+        errorElements[i].textContent = '';
+    }
+}
+</script>
+
+</body>
+</html>

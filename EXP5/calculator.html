@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #222;
+    font-family: Arial;
+}
+
+.calculator {
+    background: #333;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+#res {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: right;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+button {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.num {
+    background: #555;
+    color: white;
+}
+
+.op {
+    background: orange;
+    color: white;
+}
+
+.eq {
+    background: green;
+    color: white;
+}
+
+.clr {
+    background: red;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+<input type="text" id="res" readonly>
+
+<br>
+
+<button class="num" onclick="add('7')">7</button>
+<button class="num" onclick="add('8')">8</button>
+<button class="num" onclick="add('9')">9</button>
+<button class="op" onclick="add('/')">÷</button><br>
+
+<button class="num" onclick="add('4')">4</button>
+<button class="num" onclick="add('5')">5</button>
+<button class="num" onclick="add('6')">6</button>
+<button class="op" onclick="add('*')">×</button><br>
+
+<button class="num" onclick="add('1')">1</button>
+<button class="num" onclick="add('2')">2</button>
+<button class="num" onclick="add('3')">3</button>
+<button class="op" onclick="add('-')">−</button><br>
+
+<button class="num" onclick="add('0')">0</button>
+<button class="op" onclick="add('.')">.</button>
+<button class="eq" onclick="calc()">=</button>
+<button class="op" onclick="add('+')">+</button><br>
+
+<button class="clr" onclick="clr()" style="width: 100%;">C</button>
+
+</div>
+
+<script>
+function add(v){
+    document.getElementById("res").value += v;
+}
+function calc(){
+    document.getElementById("res").value = eval(document.getElementById("res").value);
+}
+function clr(){
+    document.getElementById("res").value = "";
+}
+</script>
+
+</body>
+</html>
